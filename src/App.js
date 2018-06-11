@@ -59,7 +59,7 @@ class App extends Component {
     }
   }
 
-  checkVictory = (row, col) => {
+  checkVertically = (row, col) => {
     let count = 0
     let turn = this.state.turn
 
@@ -68,22 +68,26 @@ class App extends Component {
       if (turn === 'red') {
         if (this.state.board[x][col] === redPiece) {
           count++
+          console.log(count)
         } else {
           break
         }
       } else {
         if (this.state.board[x][col] === whitePiece) {
           count++
+          console.log(count)
         } else {
           break
         }
       }
     }
 
-    // Reset count if victory isn't found 
-    if (count < 4) {
-      count = 0
-    }
+    return count === 4 
+  }
+
+  checkHorizontally = (row, col) => {
+    let count = 0
+    let turn = this.state.turn
 
     // Check horizontally 
     let rowPieceFound = false
@@ -97,6 +101,7 @@ class App extends Component {
         } else {
           if (this.state.board[row][y] === redPiece) {
             count++
+            console.log(count)
           } else {
             break
           }
@@ -110,6 +115,7 @@ class App extends Component {
         } else {
           if (this.state.board[row][y] === whitePiece) {
             count++
+            console.log(count)
           } else {
             break
           }
@@ -117,22 +123,35 @@ class App extends Component {
       }
     }
 
-    // Reset count if victory isn't found 
-    if (count < 4) {
-      count = 0
-    }
-
-    // Check diagonally 
-
-
-    // If 4 rows are all of the same color (if count === 4) 
-    // Toggle: game over, winner 
-    if (count === 4) {
-      return true
-    }
-
-    return false
+    return count === 4
   }
+
+  // checkVictory = (row, col) => {
+
+
+  //   // Reset count if victory isn't found 
+  //   if (count < 4) {
+  //     count = 0
+  //   }
+
+
+
+  //   // Reset count if victory isn't found 
+  //   // if (count < 4) {
+  //   //   count = 0
+  //   // }
+
+  //   // Check diagonally 
+
+
+  //   // If 4 rows are all of the same color (if count === 4) 
+  //   // Toggle: game over, winner 
+  //   if (count === 4) {
+  //     return true
+  //   }
+
+  //   return false
+  // }
 
   // When user clicks on column, drop piece on the next available row 
   handleClick = (row, col) => {
@@ -158,7 +177,7 @@ class App extends Component {
         })
       }
 
-      let victory = this.checkVictory(dropRow, col)
+      let victory = this.checkHorizontally(dropRow, col) || this.checkVertically(dropRow, col)
       if (victory) {
         // If victory is found, game over 
         this.setState({
@@ -175,6 +194,7 @@ class App extends Component {
 
   render() {
     const { gameOver, turn } = this.state
+    console.log(this.state.board)
 
     return (
       <div>
