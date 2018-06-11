@@ -1,0 +1,15 @@
+
+.row {
+    display: flex;
+}
+
+.col {
+    /* display: block; */
+    outline: none;
+    border: none;
+    background: none;
+    width: 100px;
+    height: 100px;
+    border-radius: 100%;
+    background-color: #fefefe;
+}
