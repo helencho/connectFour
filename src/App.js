@@ -185,10 +185,12 @@ class App extends Component {
     const { gameOver, turn } = this.state
     console.log(this.state)
 
+    const renderTurn = turn === 'red' ? redPiece : whitePiece 
+
     return (
       <div>
         <h1>Connect Four</h1>
-        <h3>{this.state.turn}</h3>
+        <h3>{renderTurn}</h3>
         <button onClick={this.clearBoard}>New game</button>
         <Board board={this.state.board} handleClick={this.handleClick} />
         <p>{gameOver ? `${turn} wins!` : null}</p>
