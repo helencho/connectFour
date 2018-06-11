@@ -66,25 +66,64 @@ class App extends Component {
     // Check vertically 
     for (let x = row; x < 6; x++) {
       if (turn === 'red') {
-        console.log(`Checking for red`)
-        if (this.state.board[x][col] == redPiece) {
+        if (this.state.board[x][col] === redPiece) {
           count++
-          console.log(count)
         } else {
-          console.log(`break`)
           break
         }
       } else {
-        console.log(`Checking for white`)
-        if (this.state.board[x][col] == whitePiece) {
+        if (this.state.board[x][col] === whitePiece) {
           count++
-          console.log(count)
         } else {
-          console.log(`break`)
           break
         }
       }
     }
+
+    // Reset count if victory isn't found 
+    if (count < 4) {
+      count = 0
+    }
+
+    // Check horizontally 
+    let rowPieceFound = false
+    for (let y = 0; y < 7; y++) {
+      if (turn === 'red') {
+        if (!rowPieceFound) {
+          if (this.state.board[row][y] === redPiece) {
+            rowPieceFound = true
+            y--
+          }
+        } else {
+          if (this.state.board[row][y] === redPiece) {
+            count++
+          } else {
+            break
+          }
+        }
+      } else {
+        if (!rowPieceFound) {
+          if (this.state.board[row][y] === whitePiece) {
+            rowPieceFound = true
+            y--
+          }
+        } else {
+          if (this.state.board[row][y] === whitePiece) {
+            count++
+          } else {
+            break
+          }
+        }
+      }
+    }
+
+    // Reset count if victory isn't found 
+    if (count < 4) {
+      count = 0
+    }
+
+    // Check diagonally 
+
 
     // If 4 rows are all of the same color (if count === 4) 
     // Toggle: game over, winner 
@@ -98,11 +137,14 @@ class App extends Component {
   // When user clicks on column, drop piece on the next available row 
   handleClick = (row, col) => {
     const { gameOver } = this.state
+
+    // If game isn't over 
     if (!gameOver) {
       let newBoard = [...this.state.board]
       let dropRow = this.findRow(col)
       let turn = this.state.turn
 
+      // If the target row isn't null 
       if (dropRow !== null) {
         if (turn === 'red') {
           newBoard[dropRow][col] = redPiece
@@ -117,12 +159,13 @@ class App extends Component {
       }
 
       let victory = this.checkVictory(dropRow, col)
-
       if (victory) {
+        // If victory is found, game over 
         this.setState({
           gameOver: true
         })
       } else {
+        // Otherwise, move to next player 
         this.setState({
           turn
         })
