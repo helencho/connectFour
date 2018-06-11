@@ -3,14 +3,8 @@ import Board from './components/Board'
 
 const redPiece = '🔴'
 const whitePiece = '⚪'
-// const redPiece = 'R'
-// const whitePiece = 'W'
 
 class App extends Component {
-  // State: 
-  // 1. Board 
-  // 2. Turn (white or red) 
-  // 3. Game over 
   constructor() {
     super()
     this.state = {
@@ -47,7 +41,7 @@ class App extends Component {
   findRow = (col) => {
     for (let x = 0; x < 6; x++) {
       if (x === 0 && this.state.board[x][col]) {
-        // If user chooses 1st row and it's filled, return first row 
+        // If user chooses 1st row and it's filled, return null
         return null
       } else if (this.state.board[x][col]) {
         // If we find a row that's been filled, return the previous row 
@@ -59,7 +53,8 @@ class App extends Component {
     }
   }
 
-  checkVertically = (row, col) => {
+  // Vertical 
+  checkColumns = (row, col) => {
     const { board } = this.state
     let count = 0
     let piece = board[row][col]
@@ -73,7 +68,8 @@ class App extends Component {
     return count === 4
   }
 
-  checkHorizontally = (row, col) => {
+  // Horizontal 
+  checkRows = (row, col) => {
     const { board } = this.state
     let count = 0
     let piece = board[row][col]
@@ -95,40 +91,53 @@ class App extends Component {
     return count === 4
   }
 
-  checkDiagonally = (row, col) => {
+  // Top left to bottom right 
+  checkMainDiagonal = () => {
     const { board } = this.state
-    let piece = board[row][col]
-    let count = 0
 
-    for (let x = row; x >= 0; x--) {
-      for (let y = col; y >= 0; y--) {
-        if (board[x][y] === piece) {
-          count++
-          // console.log(`Coordinates: ${x}, ${y}`)
-          x--
-          console.log(`Count: ${count}`)
-        } else {
-          break
+    // Check from the top left to bottom right 
+    for (let row = 0; row < board.length - 3; row++) {
+      for (let col = 0; col < board[row].length - 3; col++) {
+        let piece = board[row][col]
+        
+        // Target is empty 
+        if(!piece) {
+          continue 
+        }
+
+        // Check rows and columns to bottom right 
+        if (piece === board[row + 1][col + 1] && piece === board[row + 2][col + 2] && piece === board[row + 3][col + 3]) {
+          return true
         }
       }
     }
+    return false
+  }
 
-    // for (let h = row; h < 6; h++) {
-    //   for (let v = col; v < 7; v++) {
-    //     if (board[h][v] === piece) {
-    //       count++
-    //       h++
-    //       console.log(`Count: ${count}`)
-    //     } else {
-    //       break
-    //     }
-    //   }
-    // }
+  // Bottom left to top right 
+  checkCounterDiagonal = () => {
+    const { board } = this.state
 
-    if (count === 4) {
-      console.log(`Victory!`)
+    // Check from middle left to top right 
+    for (let row = 0; row < board.length - 3; row++) {
+      for (let col = 3; col < board[row].length; col++) {
+
+        let piece = board[row][col]
+
+        // Target is empty 
+        if(!piece) {
+          continue 
+        }
+
+        // Check row and columns to top right 
+        if (piece === board[row + 1][col - 1] &&
+          piece === board[row + 2][col - 2] &&
+          piece === board[row + 3][col - 3]) {
+          return true
+        }
+      }
     }
-
+    return false
   }
 
   // When user clicks on column, drop piece on the next available row 
@@ -141,7 +150,7 @@ class App extends Component {
       let dropRow = this.findRow(col)
       let turn = this.state.turn
 
-      // If the target row isn't null 
+      // If row isn't full 
       if (dropRow !== null) {
         if (turn === 'red') {
           newBoard[dropRow][col] = redPiece
@@ -153,26 +162,28 @@ class App extends Component {
         this.setState({
           board: newBoard
         })
+
+        let victory = this.checkRows(dropRow, col) || this.checkColumns(dropRow, col) || this.checkMainDiagonal() || this.checkCounterDiagonal()
+
+        if (victory) {
+          // If victory is found, game over 
+          this.setState({
+            gameOver: true
+          })
+        } else {
+          // Otherwise, move to next player 
+          this.setState({
+            turn
+          })
+        }
       }
-      this.checkDiagonally(dropRow, col)
-      let victory = this.checkHorizontally(dropRow, col) || this.checkVertically(dropRow, col)
-      if (victory) {
-        // If victory is found, game over 
-        this.setState({
-          gameOver: true
-        })
-      } else {
-        // Otherwise, move to next player 
-        this.setState({
-          turn
-        })
-      }
+
     }
   }
 
   render() {
     const { gameOver, turn } = this.state
-    console.log(this.state.board)
+    console.log(this.state)
 
     return (
       <div>
