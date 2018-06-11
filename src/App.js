@@ -60,98 +60,76 @@ class App extends Component {
   }
 
   checkVertically = (row, col) => {
+    const { board } = this.state
     let count = 0
-    let turn = this.state.turn
-
-    // Check vertically 
+    let piece = board[row][col]
     for (let x = row; x < 6; x++) {
-      if (turn === 'red') {
-        if (this.state.board[x][col] === redPiece) {
-          count++
-          console.log(count)
-        } else {
-          break
-        }
+      if (board[x][col] === piece) {
+        count++
       } else {
-        if (this.state.board[x][col] === whitePiece) {
-          count++
-          console.log(count)
-        } else {
-          break
-        }
+        break
       }
     }
-
-    return count === 4 
-  }
-
-  checkHorizontally = (row, col) => {
-    let count = 0
-    let turn = this.state.turn
-
-    // Check horizontally 
-    let rowPieceFound = false
-    for (let y = 0; y < 7; y++) {
-      if (turn === 'red') {
-        if (!rowPieceFound) {
-          if (this.state.board[row][y] === redPiece) {
-            rowPieceFound = true
-            y--
-          }
-        } else {
-          if (this.state.board[row][y] === redPiece) {
-            count++
-            console.log(count)
-          } else {
-            break
-          }
-        }
-      } else {
-        if (!rowPieceFound) {
-          if (this.state.board[row][y] === whitePiece) {
-            rowPieceFound = true
-            y--
-          }
-        } else {
-          if (this.state.board[row][y] === whitePiece) {
-            count++
-            console.log(count)
-          } else {
-            break
-          }
-        }
-      }
-    }
-
     return count === 4
   }
 
-  // checkVictory = (row, col) => {
+  checkHorizontally = (row, col) => {
+    const { board } = this.state
+    let count = 0
+    let piece = board[row][col]
+    let pieceFound = false
+    for (let y = 0; y < 7; y++) {
+      if (!pieceFound) {
+        if (board[row][y] === piece) {
+          pieceFound = true
+          count++
+        }
+      } else {
+        if (board[row][y] === piece) {
+          count++
+        } else {
+          break
+        }
+      }
+    }
+    return count === 4
+  }
 
+  checkDiagonally = (row, col) => {
+    const { board } = this.state
+    let piece = board[row][col]
+    let count = 0
 
-  //   // Reset count if victory isn't found 
-  //   if (count < 4) {
-  //     count = 0
-  //   }
+    for (let x = row; x >= 0; x--) {
+      for (let y = col; y >= 0; y--) {
+        if (board[x][y] === piece) {
+          count++
+          // console.log(`Coordinates: ${x}, ${y}`)
+          x--
+          console.log(`Count: ${count}`)
+        } else {
+          break
+        }
+      }
+    }
 
+    // for (let h = row; h < 6; h++) {
+    //   for (let v = col; v < 7; v++) {
+    //     if (board[h][v] === piece) {
+    //       count++
+    //       h++
+    //       console.log(`Count: ${count}`)
+    //     } else {
+    //       break
+    //     }
+    //   }
+    // }
 
+    if (count === 4) {
+      console.log(`Victory!`)
+    }
 
-  //   // Reset count if victory isn't found 
-  //   // if (count < 4) {
-  //   //   count = 0
-  //   // }
-
-  //   // Check diagonally 
-
-
-  //   // If 4 rows are all of the same color (if count === 4) 
-  //   // Toggle: game over, winner 
-  //   if (count === 4) {
-  //     return true
-  //   }
-
-  //   return false
-  // }
+  }
 
   // When user clicks on column, drop piece on the next available row 
   handleClick = (row, col) => {
@@ -176,7 +154,7 @@ class App extends Component {
           board: newBoard
         })
       }
-
+      this.checkDiagonally(dropRow, col)
       let victory = this.checkHorizontally(dropRow, col) || this.checkVertically(dropRow, col)
       if (victory) {
         // If victory is found, game over 
