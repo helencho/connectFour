@@ -4,7 +4,6 @@ import '../stylesheets/board.css'
 class Board extends Component {
     render() {
         const { board } = this.props
-        console.log(board)
 
         return (
             <div className="board-container">
