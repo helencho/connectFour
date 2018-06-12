@@ -24,7 +24,7 @@ class App extends Component {
     for (let row = 0; row < 6; row++) {
       board.push([])
       for (let col = 0; col < 7; col++) {
-        board[row].push('')
+        board[row].push(null)
       }
     }
     this.setState({
@@ -74,6 +74,10 @@ class App extends Component {
     let count = 0
     let piece = board[row][col]
     let pieceFound = false
+    
+    // Check entire given row 
+    
+
     for (let y = 0; y < 7; y++) {
       if (!pieceFound) {
         if (board[row][y] === piece) {
