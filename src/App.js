@@ -76,27 +76,8 @@ class App extends Component {
   }
 
   // Horizontal victory check 
-  checkRows = (row, col) => {
+  checkRows = (row) => {
     const { board } = this.state
-    // OLD CODE -- Don't delete just yet 
-    // let count = 0
-    // let piece = board[row][col]
-    // let pieceFound = false
-    // for (let y = 0; y < 7; y++) {
-    //   if (!pieceFound) {
-    //     if (board[row][y] === piece) {
-    //       pieceFound = true
-    //       count++
-    //     }
-    //   } else {
-    //     if (board[row][y] === piece) {
-    //       count++
-    //     } else {
-    //       break
-    //     }
-    //   }
-    // }
-    // return count === 4
 
     // Check the row, form left to right 
     for (let y = 0; y < board[row].length - 3; y++) {
@@ -174,7 +155,8 @@ class App extends Component {
     // Game is not over 
     if (!gameOver) {
       let newBoard = [...this.state.board]
-      let dropRow = this.findRow(col)
+      // let dropRow = this.findRow(col)
+      let dropRow = this.state.targetRow
       let turn = this.state.turn
 
       // Row is not full 
@@ -197,11 +179,13 @@ class App extends Component {
 
         // Set new board 
         this.setState({
-          board: newBoard
+          board: newBoard,
+          targetRow: null,
+          targetCol: null
         })
 
         // Check for any victory 
-        let victory = this.checkRows(dropRow, col) || this.checkColumns(dropRow, col) || this.checkMainDiagonal() || this.checkCounterDiagonal()
+        let victory = this.checkRows(dropRow) || this.checkColumns(dropRow, col) || this.checkMainDiagonal() || this.checkCounterDiagonal()
 
         // Victory found, game over 
         if (victory) {
