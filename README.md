@@ -6,4 +6,6 @@ It's a game of connect four. This is my attempt to:
 
 * Deep dive into matrices 
 
-* Prepare for technical interviews, specifically those that ask to build an app from scratch via Google Chat 
+* Prepare for technical interviews, specifically those that ask to build an app from scratch 
+
+![Connect four](./assets/screely-main.png)
