@@ -29,9 +29,12 @@ class App extends Component {
         board[row].push(null)
       }
     }
+    // Reset state 
     this.setState({
       board,
-      gameOver: false
+      gameOver: false,
+      targetRow: null,
+      targetCol: null 
     })
   }
 
@@ -218,14 +221,12 @@ class App extends Component {
 
   render() {
     const { gameOver, turn, targetRow, targetCol } = this.state
-    // console.log(this.state)
 
     const renderTurn = turn === 'blue' ? bluePiece : whitePiece
 
     return (
       <div>
         <h1>Connect Four {renderTurn}</h1>
-        {/* <h3>Turn: {renderTurn}</h3> */}
         <Board board={this.state.board} handleClick={this.handleClick} handleHover={this.handleHover} targetRow={targetRow} targetCol={targetCol} />
         <p className="message">{gameOver ? `${turn} wins!` : null}</p>
         <button onClick={this.clearBoard} className="new-game">New game</button>

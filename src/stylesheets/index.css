@@ -17,19 +17,19 @@ h1, h2, h3, h4, h5, h6, p {
   color: #fefefe;
 }
 
+/* Head title */
 h1 {
   font-size: 2.2rem;
+  padding: 0.6rem;
 }
 
-h3 {
-  font-size: 1.8rem;
-}
-
+/* Game over message */
 p.message {
-  font-size: 2.2rem;
+  font-size: 1.8rem;
   height: 52px;
 }
 
+/* New game button */
 button.new-game {
   outline: none;
   border: none;
