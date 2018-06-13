@@ -224,11 +224,11 @@ class App extends Component {
 
     return (
       <div>
-        <h1>Connect Four</h1>
-        <h3>Turn: {renderTurn}</h3>
-        <button onClick={this.clearBoard}>New game</button>
+        <h1>Connect Four {renderTurn}</h1>
+        {/* <h3>Turn: {renderTurn}</h3> */}
         <Board board={this.state.board} handleClick={this.handleClick} handleHover={this.handleHover} targetRow={targetRow} targetCol={targetCol} />
-        <p>{gameOver ? `${turn} wins!` : null}</p>
+        <p className="message">{gameOver ? `${turn} wins!` : null}</p>
+        <button onClick={this.clearBoard} className="new-game">New game</button>
       </div>
     );
   }
