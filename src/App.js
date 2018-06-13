@@ -71,28 +71,44 @@ class App extends Component {
   // Horizontal 
   checkRows = (row, col) => {
     const { board } = this.state
-    let count = 0
-    let piece = board[row][col]
-    let pieceFound = false
-    
-    // Check entire given row 
-    
+    // OLD CODE -- Don't delete just yet 
+    // let count = 0
+    // let piece = board[row][col]
+    // let pieceFound = false
+    // for (let y = 0; y < 7; y++) {
+    //   if (!pieceFound) {
+    //     if (board[row][y] === piece) {
+    //       pieceFound = true
+    //       count++
+    //     }
+    //   } else {
+    //     if (board[row][y] === piece) {
+    //       count++
+    //     } else {
+    //       break
+    //     }
+    //   }
+    // }
+    // return count === 4
 
-    for (let y = 0; y < 7; y++) {
-      if (!pieceFound) {
-        if (board[row][y] === piece) {
-          pieceFound = true
-          count++
-        }
-      } else {
-        if (board[row][y] === piece) {
-          count++
-        } else {
-          break
-        }
+    // Check the row, form left to right 
+    for (let y = 0; y < board[row].length - 3; y++) {
+      let piece = board[row][y]
+
+      // Slot is empty 
+      if (!piece) {
+        continue
+      }
+
+      // Check 3 pieces to the right of target piece 
+      if (piece === board[row][y + 1] &&
+        piece === board[row][y + 2] &&
+        piece === board[row][y + 3]) {
+        return true
       }
     }
-    return count === 4
+
+    return false
   }
 
   // Top left to bottom right 
@@ -103,14 +119,16 @@ class App extends Component {
     for (let row = 0; row < board.length - 3; row++) {
       for (let col = 0; col < board[row].length - 3; col++) {
         let piece = board[row][col]
-        
-        // Target is empty 
-        if(!piece) {
-          continue 
+
+        // Slot is empty 
+        if (!piece) {
+          continue
         }
 
         // Check rows and columns to bottom right 
-        if (piece === board[row + 1][col + 1] && piece === board[row + 2][col + 2] && piece === board[row + 3][col + 3]) {
+        if (piece === board[row + 1][col + 1] &&
+          piece === board[row + 2][col + 2] &&
+          piece === board[row + 3][col + 3]) {
           return true
         }
       }
@@ -125,12 +143,11 @@ class App extends Component {
     // Check from middle left to top right 
     for (let row = 0; row < board.length - 3; row++) {
       for (let col = 3; col < board[row].length; col++) {
-
         let piece = board[row][col]
 
         // Target is empty 
-        if(!piece) {
-          continue 
+        if (!piece) {
+          continue
         }
 
         // Check row and columns to top right 
@@ -189,7 +206,7 @@ class App extends Component {
     const { gameOver, turn } = this.state
     console.log(this.state)
 
-    const renderTurn = turn === 'red' ? redPiece : whitePiece 
+    const renderTurn = turn === 'red' ? redPiece : whitePiece
 
     return (
       <div>
