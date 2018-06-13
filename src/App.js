@@ -1,15 +1,17 @@
 import React, { Component } from 'react'
 import Board from './components/Board'
 
-const whitePiece = '⚪'
 const bluePiece = '🔵'
+const whitePiece = '⚪'
+
+// 💙💚💛🌕🌑🌕🌑⚪🔵
 
 class App extends Component {
   constructor() {
     super()
     this.state = {
       board: [],
-      turn: 'blue',
+      turn: 'white',
       gameOver: false,
       targetRow: null,
       targetCol: null
@@ -34,7 +36,7 @@ class App extends Component {
       board,
       gameOver: false,
       targetRow: null,
-      targetCol: null 
+      targetCol: null
     })
   }
 
@@ -164,20 +166,20 @@ class App extends Component {
 
       // Row is not full 
       if (dropRow !== null) {
-        if (turn === 'blue') {
-
-          // Drop a blue piece on the board 
-          newBoard[dropRow][col] = bluePiece
-
-          // Switch turn to white 
-          turn = 'white'
-        } else {
+        if (turn === 'white') {
 
           // Drop a white piece on the board 
           newBoard[dropRow][col] = whitePiece
 
           // Switch turn to blue 
           turn = 'blue'
+        } else {
+
+          // Drop a blue piece on the board 
+          newBoard[dropRow][col] = bluePiece
+
+          // Switch turn to white 
+          turn = 'white'
         }
 
         // Set new board 
@@ -222,14 +224,16 @@ class App extends Component {
   render() {
     const { gameOver, turn, targetRow, targetCol } = this.state
 
-    const renderTurn = turn === 'blue' ? bluePiece : whitePiece
+    const renderTurn = turn === 'white' ? whitePiece : bluePiece
 
     return (
       <div>
-        <h1>Connect Four {renderTurn}</h1>
+        <div className="stat-container">
+          <h1>Connect Four</h1>
+          <h1>{gameOver ? `🏆` : null} {renderTurn}</h1>
+        </div>
         <Board board={this.state.board} handleClick={this.handleClick} handleHover={this.handleHover} targetRow={targetRow} targetCol={targetCol} />
-        <p className="message">{gameOver ? `${turn} wins!` : null}</p>
-        <button onClick={this.clearBoard} className="new-game">New game</button>
+        <button onClick={this.clearBoard} className="new-game">New Game</button>
       </div>
     );
   }

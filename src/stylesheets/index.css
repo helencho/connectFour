@@ -17,10 +17,15 @@ h1, h2, h3, h4, h5, h6, p {
   color: #fefefe;
 }
 
+.stat-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.8rem;
+}
+
 /* Head title */
 h1 {
   font-size: 2.2rem;
-  padding: 0.6rem;
 }
 
 /* Game over message */
@@ -35,17 +40,18 @@ button.new-game {
   border: none;
   background: none;
   font-family: 'Open Sans', sans-serif;
-  color: #fefefe;
-  border: 1px solid #fefefe;
+  color: rgba(254, 254, 254, 0.6);
+  border: 3px solid rgba(254, 254, 254, 0.4);
   border-radius: 2px;
   font-size: 1.2rem;
   padding: 0.6rem 0.8rem;
+  margin: 0.8rem;
   transition: 0.2s all;
-  cursor: pointer;
 }
 
   button.new-game:hover {
-    background-color: #00a2df;
+    /* background-color: #00a2df; */
     border-color: #00a2df;
-    color: rgba(0, 0, 0, 0.9);
+    /* color: rgba(0, 0, 0, 0.8); */
+    color: rgba(254, 254, 254, 0.8);
   }

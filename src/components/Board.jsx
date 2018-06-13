@@ -48,7 +48,7 @@ class Board extends Component {
 
         return (
             <div className="board-container">
-                <div className="board">
+                {/* <div className="board"> */}
                     {board.map((row, index) => (
                         <Row
                             key={index}
@@ -59,7 +59,7 @@ class Board extends Component {
                             handleClick={this.props.handleClick}
                             handleHover={this.props.handleHover} />
                     ))}
-                </div>
+                {/* </div> */}
             </div>
         )
     }
