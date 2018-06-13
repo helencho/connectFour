@@ -38,22 +38,26 @@ class App extends Component {
     this.fillBoard()
   }
 
+  // Find the first empty slot in given column 
   findRow = (col) => {
     for (let x = 0; x < 6; x++) {
       if (x === 0 && this.state.board[x][col]) {
         // If user chooses 1st row and it's filled, return null
         return null
+
       } else if (this.state.board[x][col]) {
         // If we find a row that's been filled, return the previous row 
         return x - 1
+
       } else if (x === 5) {
         // If we're at the last row, return last row 
         return x
+        
       }
     }
   }
 
-  // Vertical 
+  // Vertical victory check 
   checkColumns = (row, col) => {
     const { board } = this.state
     let count = 0
@@ -65,10 +69,11 @@ class App extends Component {
         break
       }
     }
+    // Return boolean  
     return count === 4
   }
 
-  // Horizontal 
+  // Horizontal victory check 
   checkRows = (row, col) => {
     const { board } = this.state
     // OLD CODE -- Don't delete just yet 
@@ -107,11 +112,10 @@ class App extends Component {
         return true
       }
     }
-
     return false
   }
 
-  // Top left to bottom right 
+  // Top left to bottom right victory check 
   checkMainDiagonal = () => {
     const { board } = this.state
 
@@ -136,7 +140,7 @@ class App extends Component {
     return false
   }
 
-  // Bottom left to top right 
+  // Bottom left to top right victory check 
   checkCounterDiagonal = () => {
     const { board } = this.state
 
@@ -165,40 +169,49 @@ class App extends Component {
   handleClick = (row, col) => {
     const { gameOver } = this.state
 
-    // If game isn't over 
+    // Game is not over 
     if (!gameOver) {
       let newBoard = [...this.state.board]
       let dropRow = this.findRow(col)
       let turn = this.state.turn
 
-      // If row isn't full 
+      // Row is not full 
       if (dropRow !== null) {
         if (turn === 'red') {
+
+          // Drop a red piece on the board 
           newBoard[dropRow][col] = redPiece
+
+          // Switch turn to white 
           turn = 'white'
         } else {
+
+          // Drop a white piece on the board 
           newBoard[dropRow][col] = whitePiece
+
+          // Switch turn to red 
           turn = 'red'
         }
+
+        // Set new board 
         this.setState({
           board: newBoard
         })
 
+        // Check for any victory 
         let victory = this.checkRows(dropRow, col) || this.checkColumns(dropRow, col) || this.checkMainDiagonal() || this.checkCounterDiagonal()
 
+        // Victory found, game over 
         if (victory) {
-          // If victory is found, game over 
           this.setState({
             gameOver: true
           })
         } else {
-          // Otherwise, move to next player 
           this.setState({
             turn
           })
         }
       }
-
     }
   }
 
