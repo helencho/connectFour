@@ -10,7 +10,9 @@ class App extends Component {
     this.state = {
       board: [],
       turn: 'red',
-      gameOver: false
+      gameOver: false,
+      targetRow: null,
+      targetCol: null
     }
   }
 
@@ -52,7 +54,7 @@ class App extends Component {
       } else if (x === 5) {
         // If we're at the last row, return last row 
         return x
-        
+
       }
     }
   }
@@ -215,18 +217,33 @@ class App extends Component {
     }
   }
 
+  // When user hovers over a slot 
+  handleHover = (row, col) => {
+    // Game is not over 
+    if (!this.state.gameOver) {
+      // Find target row 
+      let dropRow = this.findRow(col)
+
+      // Set row and column to state 
+      this.setState({
+        targetRow: dropRow,
+        targetCol: col
+      })
+    }
+  }
+
   render() {
-    const { gameOver, turn } = this.state
-    console.log(this.state)
+    const { gameOver, turn, targetRow, targetCol } = this.state
+    // console.log(this.state)
 
     const renderTurn = turn === 'red' ? redPiece : whitePiece
 
     return (
       <div>
         <h1>Connect Four</h1>
-        <h3>{renderTurn}</h3>
+        <h3>Turn: {renderTurn}</h3>
         <button onClick={this.clearBoard}>New game</button>
-        <Board board={this.state.board} handleClick={this.handleClick} />
+        <Board board={this.state.board} handleClick={this.handleClick} handleHover={this.handleHover} targetRow={targetRow} targetCol={targetCol} />
         <p>{gameOver ? `${turn} wins!` : null}</p>
       </div>
     );
