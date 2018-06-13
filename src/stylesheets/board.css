@@ -30,6 +30,14 @@
 
     .col-active {
         border: 3px solid #00a2df;
-        /* border: 3px solid rgba(254, 254, 254, 0.4); */
         background-color: rgba(254, 254, 254, 0.2);
     }
+
+/* Mobile view */
+@media screen and (max-width: 430px) {
+    .col {
+        width: 40px;
+        height: 40px;
+        font-size: 1.8rem;
+    }
+}
