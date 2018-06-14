@@ -9,9 +9,11 @@ class Button extends Component {
         // Column index and target column are the same 
         const activeClass = index === targetRow && idx === targetCol ? `active` : null
 
+        const pieceClass = col === 'w' ? `white` : col === 'b' ? `black` : null
+
         return (
             <button
-                className={`col col-${activeClass}`}
+                className={`col col-${activeClass} col-${pieceClass}`}
                 onClick={() => this.props.handleClick(index, idx)}
                 onMouseOver={() => this.props.handleHover(index, idx)}
             >
@@ -49,16 +51,16 @@ class Board extends Component {
         return (
             <div className="board-container">
                 {/* <div className="board"> */}
-                    {board.map((row, index) => (
-                        <Row
-                            key={index}
-                            row={row}
-                            index={index}
-                            targetRow={targetRow}
-                            targetCol={targetCol}
-                            handleClick={this.props.handleClick}
-                            handleHover={this.props.handleHover} />
-                    ))}
+                {board.map((row, index) => (
+                    <Row
+                        key={index}
+                        row={row}
+                        index={index}
+                        targetRow={targetRow}
+                        targetCol={targetCol}
+                        handleClick={this.props.handleClick}
+                        handleHover={this.props.handleHover} />
+                ))}
                 {/* </div> */}
             </div>
         )

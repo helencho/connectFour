@@ -1,10 +1,8 @@
 import React, { Component } from 'react'
 import Board from './components/Board'
 
-const bluePiece = '🔵'
-const whitePiece = '⚪'
-
-// 💙💚💛🌕🌑🌕🌑⚪🔵
+const blackPiece = 'b'
+const whitePiece = 'w'
 
 class App extends Component {
   constructor() {
@@ -171,12 +169,12 @@ class App extends Component {
           // Drop a white piece on the board 
           newBoard[dropRow][col] = whitePiece
 
-          // Switch turn to blue 
-          turn = 'blue'
+          // Switch turn to black 
+          turn = 'black'
         } else {
 
-          // Drop a blue piece on the board 
-          newBoard[dropRow][col] = bluePiece
+          // Drop a black piece on the board 
+          newBoard[dropRow][col] = blackPiece
 
           // Switch turn to white 
           turn = 'white'
@@ -224,13 +222,13 @@ class App extends Component {
   render() {
     const { gameOver, turn, targetRow, targetCol } = this.state
 
-    const renderTurn = turn === 'white' ? whitePiece : bluePiece
+    const renderTurn = turn === 'white' ? whitePiece : blackPiece 
 
     return (
       <div>
         <div className="stat-container">
           <h1>Connect Four</h1>
-          <h1>{gameOver ? `🏆` : null} {renderTurn}</h1>
+          <h1>{gameOver ? `🏆` : null} {turn}</h1>
         </div>
         <Board board={this.state.board} handleClick={this.handleClick} handleHover={this.handleHover} targetRow={targetRow} targetCol={targetCol} />
         <button onClick={this.clearBoard} className="new-game">New Game</button>
