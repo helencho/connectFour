@@ -225,11 +225,11 @@ class App extends Component {
     const renderTurn = turn === 'white' ? whitePiece : blackPiece 
 
     return (
-      <div>
-        <div className="stat-container">
-          <h1>Connect Four</h1>
-          <h1>{gameOver ? `🏆` : null} {turn}</h1>
-        </div>
+      <div className="main-container">
+        {/* <div className="stat-container"> */}
+          <h1>Connect Four <span className="turn">{turn}s</span></h1>
+          {/* <h1>{gameOver ? `🏆` : null} {turn}</h1> */}
+        {/* </div> */}
         <Board board={this.state.board} handleClick={this.handleClick} handleHover={this.handleHover} targetRow={targetRow} targetCol={targetCol} />
         <button onClick={this.clearBoard} className="new-game">New Game</button>
       </div>

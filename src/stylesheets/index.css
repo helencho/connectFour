@@ -7,7 +7,6 @@ body {
   font-family: 'Open Sans', sans-serif;
   font-size: 10px;
   background-color: rgba(0, 0, 0, 0.2);
-  /* background-color: #192e2a; */
   text-align: center;
 }
 
@@ -17,15 +16,27 @@ h1, h2, h3, h4, h5, h6, p {
   color: #fefefe;
 }
 
-.stat-container {
+.main-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* .stat-container {
   display: flex;
   justify-content: space-between;
   padding: 0.8rem;
-}
+} */
 
 /* Head title */
 h1 {
   font-size: 2.2rem;
+  margin: 0.8rem;
+}
+
+.turn {
+  display: inline-block;
+  width: 102px;
 }
 
 /* Game over message */
@@ -41,8 +52,8 @@ button.new-game {
   background: none;
   font-family: 'Open Sans', sans-serif;
   color: rgba(254, 254, 254, 0.6);
-  border: 3px solid rgba(254, 254, 254, 0.4);
-  border-radius: 2px;
+  border: 10px solid rgba(254, 254, 254, 0.6);
+  border-radius: 8px;
   font-size: 1.2rem;
   padding: 0.6rem 0.8rem;
   margin: 0.8rem;
@@ -51,7 +62,8 @@ button.new-game {
 
   button.new-game:hover {
     /* background-color: #00a2df; */
-    border-color: #00a2df;
+    border-color: #fefefe;
+    color: #fefefe;
     /* color: rgba(0, 0, 0, 0.8); */
-    color: rgba(254, 254, 254, 0.8);
+    /* color: rgba(254, 254, 254, 0.8); */
   }
