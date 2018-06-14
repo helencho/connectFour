@@ -4,7 +4,6 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    /* margin: 0.8rem auto; */
     width: 760px;
     height: 620px;
     background-color: #fefefe;
@@ -49,7 +48,6 @@
     .col-black {
         border-color: white;
         background-color: black;
-        /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.08); */
     }
 
 /* Mobile view */

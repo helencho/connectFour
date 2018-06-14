@@ -22,12 +22,6 @@ h1, h2, h3, h4, h5, h6, p {
   align-items: center;
 }
 
-/* .stat-container {
-  display: flex;
-  justify-content: space-between;
-  padding: 0.8rem;
-} */
-
 /* Head title */
 h1 {
   font-size: 2.2rem;
@@ -36,7 +30,8 @@ h1 {
 
 .turn {
   display: inline-block;
-  /* width: 102px; */
+  width: 160px;
+  text-align: left;
 }
 
 /* Game over message */
@@ -51,7 +46,8 @@ button.new-game {
   border: none;
   background: none;
   font-family: 'Open Sans', sans-serif;
-  color: rgba(254, 254, 254, 0.6);
+  /* color: rgba(254, 254, 254, 0.6); */
+  color: #fefefe;
   border: 10px solid rgba(254, 254, 254, 0.6);
   border-radius: 8px;
   font-size: 1.2rem;
@@ -61,9 +57,6 @@ button.new-game {
 }
 
   button.new-game:hover {
-    /* background-color: #00a2df; */
     border-color: #fefefe;
     color: #fefefe;
-    /* color: rgba(0, 0, 0, 0.8); */
-    /* color: rgba(254, 254, 254, 0.8); */
   }

@@ -222,16 +222,11 @@ class App extends Component {
   render() {
     const { gameOver, turn, targetRow, targetCol } = this.state
 
-    // const renderTurn = turn === 'white' ? whitePiece : blackPiece 
-
-    const win = gameOver ? <i className="fas fa-trophy" /> : null
+    const win = gameOver ? <i className="fas fa-trophy fa-fw" /> : null
 
     return (
       <div className="main-container">
-        {/* <div className="stat-container"> */}
-        <h1>Connect Four <span className="turn">{turn}s</span> {win}</h1>
-        {/* <h1>{gameOver ? `🏆` : null} {turn}</h1> */}
-        {/* </div> */}
+        <h1>Connect Four <span className="turn">{turn.toUpperCase()} {win}</span></h1>
         <Board board={this.state.board} handleClick={this.handleClick} handleHover={this.handleHover} targetRow={targetRow} targetCol={targetCol} />
         <button onClick={this.clearBoard} className="new-game">New Game</button>
       </div>
